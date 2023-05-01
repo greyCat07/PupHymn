@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytechnic University of the Philippines</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', Times, serif, sans-serif;
+    }
+    
+    #header {
+      background-color: #d17d00;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 3px;
+      
+    }
+    h2{
+      margin-top: 10px;
+      margin-left: 130px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    h3{
+      text-align: left;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 150px;
+      font-style: italic;
+    }
+    h1{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    img{
+        float: left;
+        padding: 10px;
+        margin-left: 7px;
+        margin-right: 10px;
+        position: relative;
+        top: -95px;
+    }
+    
+    #main {
+      margin: 50px;
+    }
+    
+    #player {
+          background-image: url("PUP.jpg");
+          height: 450px;
+          width: auto;
+          opacity: 0.75;
+          text-align: center;
+          color: rgb(255, 0, 0);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    #audioplayer {
+      text-align: center;
+    }
+    
+    #track {
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    #lyrics{
+          font-size: 25px;
+          font-weight: bold;
+          height: 350px;
+          width: 100%;
+          text-align: center;
+          margin: 0 auto;
+          overflow: hidden;
+    }
+    
+    #footer {
+      background-color: #3c0008;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  
+  </style>  
+  </head>
+  <body>
+    <div id="header">
+      <h2>Polytechnic University of the Philippines</h2>
+      <h3>The Country's first Polytechnic University</h3>
+      <img alt="logo" src="puplogo.png" height="100" width="100">
+    </div>
+  
+    <div id="main">
+      <div id="player">
+        <div id="track">
+          <marquee id="lyrics" direction="up" scrollamount="1" loop="1">
+            <br>IMNO NG PUP<br> 
+            <br>Sintang Paaralan<br>
+            <br>Tanglaw ka ng bayan<br>
+            <br>Pandayan ng isip ng kabataan<br>
+            <br>Kami ay dumating nang salat sa yaman<br>
+            <br>Hanap na dunong ay iyong alay<br>
+            <br>Ang layunin mong makatao<br>
+            <br>Dinarangal ang Pilipino<br>
+            <br>Ang iyong aral, diwa, adhikang taglay<br>
+            <br>PUP, aming gabay<br>
+            <br>Paaralang dakila<br>
+            <br>PUP, pinagpala<br>
+            <br>Gagamitin ang karunungan<br>
+            <br>Mula sa iyo, para sa bayan<br>
+            <br>Ang iyong aral, diwa, adhikang taglay<br>
+            <br>PUP, aming gabay<br>
+            <br>Paaralang dakila<br>
+            <br>PUP, pinagpala<br>
+          </marquee>
+        </div>
+  
+        <audio controls id="audioplayer" autoplay onplay="startScroll()" onpause="stopScroll()">
+          <source src="imnongpup.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+  
+    <div id="footer">
+      <p>&copy; 2023 All rights reserved.</p>
+      <p>Polytechnic University of the Philippines</p>
+    </div>
+  
+    <script>
+      var trackLyrics = document.getElementById("lyrics");
+      var audioPlayer = document.getElementById("audioplayer");
+  
+      function startScroll() {
+        audioPlayer.addEventListener("timeupdate", updateTime);
+      }
+  
+      function stopScroll() {
+        audioPlayer.removeEventListener("timeupdate", updateTime);
+        trackLyrics.stop();
+      }
+  
+      function updateTime() {
+        // Check if the audio is paused
+        if (audioPlayer.paused) {
+          audioPlayer.removeEventListener("timeupdate", updateTime);
+          return;
+        }
+  
+        // Compute the percentage of the song that has played
+        var percentagePlayed = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  
+        // Compute the percentage of the lyrics that should be scrolled
+        var lyricsHeight = trackLyrics.scrollHeight - trackLyrics.clientHeight;
+        var percentageToScroll = (percentagePlayed * lyricsHeight) / 100;
+  
+        // Update the scroll position of the lyrics
+        trackLyrics.scrollTop = percentageToScroll;
+      }
+    </script>
+  </body>
+  </html>
+
